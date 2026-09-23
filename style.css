@@ -1,0 +1,505 @@
+
+    :root {
+      --lula-plum: #74139a;
+      --lula-purple: #8d2cba;
+      --lula-lilac: #ca96e9;
+      --lula-soft: #f5e9fb;
+      --lula-pink: #d95acf;
+      --ink: #381144;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Work Sans", sans-serif;
+      color: var(--ink);
+    }
+
+    .script-font {
+      font-family: "Pacifico", cursive;
+    }
+
+    .page-shell {
+      width: 100%;
+      min-height: calc(100 * min(var(--vh, 1vh), 1vh));
+    }
+
+    .paper-texture {
+      background-image: radial-gradient(rgba(141, 44, 186, .12) .8px, transparent .8px);
+      background-size: 16px 16px;
+    }
+
+    .quote-card {
+      box-shadow: 0 16px 44px rgba(92, 20, 112, .12);
+    }
+
+    .field {
+      width: 100%;
+      border: 1.5px solid #dcb5ef;
+      border-radius: 12px;
+      padding: .7rem .8rem;
+      background: #fff;
+      color: var(--ink);
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    .field:focus {
+      border-color: var(--lula-purple);
+      box-shadow: 0 0 0 3px rgba(141, 44, 186, .16);
+    }
+
+    .field::placeholder {
+      color: #9d79a9;
+    }
+
+    .field-invalid {
+      border-color: #c52361 !important;
+      background: #fff3f7;
+    }
+
+    .product-row {
+      display: grid;
+      grid-template-columns: 1.4fr 1.6fr .65fr 1fr 1fr 44px;
+      gap: .65rem;
+      align-items: end;
+      border-bottom: 1px dashed #dbb5ea;
+      padding: .85rem 0;
+    }
+
+    .product-label {
+      display: block;
+      font-size: .73rem;
+      font-weight: 700;
+      color: #6d337b;
+      margin: 0 0 .3rem .1rem;
+    }
+
+    .money-output {
+      min-height: 43px;
+      display: flex;
+      align-items: center;
+      padding: .7rem .75rem;
+      border-radius: 12px;
+      background: #f5e9fb;
+      color: #631080;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .saved-item {
+      transition: transform .18s, box-shadow .18s;
+    }
+
+    .saved-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(92, 20, 112, .12);
+    }
+
+    .saved-item.active {
+      border-color: #8d2cba;
+      background: #fbf5fe;
+    }
+
+    .toast {
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: .25s;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .preview-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .preview-table th {
+      text-align: left;
+      background: #f5e9fb;
+      color: #681280;
+      padding: .55rem;
+      font-size: .75rem;
+    }
+
+    .preview-table td {
+      border-bottom: 1px solid #ead7f2;
+      padding: .55rem;
+      vertical-align: top;
+    }
+
+    .sr-only-focusable:focus {
+      position: static;
+      width: auto;
+      height: auto;
+      padding: .5rem;
+      margin: .5rem;
+      overflow: visible;
+      clip: auto;
+      white-space: normal;
+    }
+
+    @media (max-width: 760px) {
+      .product-row {
+        grid-template-columns: 1fr 1fr;
+        gap: .65rem;
+        padding: 1rem;
+        margin-bottom: .8rem;
+        border: 1px solid #e5c8f0;
+        border-radius: 16px;
+        background: #fff;
+      }
+
+      .product-row .wide {
+        grid-column: 1 / -1;
+      }
+
+      .product-row .remove-wrap {
+        grid-column: 1 / -1;
+      }
+
+      .product-row .remove-wrap button {
+        width: 100%;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff !important;
+      }
+
+      .no-print,
+      header,
+      #editor-area,
+      #saved-area,
+      #brand-area,
+      #toast {
+        display: none !important;
+      }
+
+      #print-area {
+        display: block !important;
+        padding: 0 !important;
+      }
+
+      .print-sheet {
+        box-shadow: none !important;
+        border: none !important;
+        width: 100% !important;
+      }
+
+      .print-only {
+        display: block !important;
+      }
+
+      @page {
+        size: A4;
+        margin: 13mm;
+      }
+
+      .print-sheet {
+        padding: 0 !important;
+      }
+
+      tr {
+        break-inside: avoid;
+      }
+    }
+
+    /* Hoja A4 inspirada en la referencia enviada por la clienta. */
+    .lula-sheet {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 18px auto;
+      background: white;
+      color: #202024;
+      display: flex;
+      flex-direction: column;
+      font-family: "Work Sans", Arial, sans-serif;
+    }
+
+    .lula-hero {
+      min-height: 47mm;
+      background: #f0d9ff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12mm;
+      padding: 9mm 16mm;
+    }
+
+    .lula-logo {
+      max-width: 83mm;
+      max-height: 36mm;
+      object-fit: contain;
+    }
+
+    .lula-title {
+      border: 1px solid #27232b;
+      border-radius: 40px;
+      padding: 3mm 9mm;
+      font-size: 25px;
+      font-weight: 600;
+      letter-spacing: .02em;
+      white-space: nowrap;
+    }
+
+    .lula-sheet-body {
+      padding: 8mm 17mm 6mm;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .lula-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 8mm;
+      margin-bottom: 11mm;
+    }
+
+    .lula-client-fields {
+      flex: 1;
+      max-width: 125mm;
+      font-size: 12px;
+    }
+
+    .lula-client-fields>div {
+      display: grid;
+      grid-template-columns: 29mm 1fr;
+      align-items: start;
+      min-height: 7mm;
+      gap: 2mm;
+    }
+
+    .lula-client-fields b {
+      font-weight: 600;
+    }
+
+    .lula-client-fields span {
+      min-height: 6mm;
+      padding: 1mm 2mm;
+      background: #f0d9ff;
+      overflow-wrap: anywhere;
+    }
+
+    .lula-quote-info {
+      text-align: right;
+      white-space: nowrap;
+      font-size: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 2mm;
+      padding-top: 4mm;
+    }
+
+    .lula-products-wrap {
+      border: 1px solid #26232b;
+      border-radius: 5mm;
+      overflow: hidden;
+    }
+
+    .lula-products {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    .lula-products th,
+    .lula-products td {
+      padding: 5mm 3mm;
+      text-align: center;
+      overflow-wrap: anywhere;
+      vertical-align: middle;
+    }
+
+    .lula-products th {
+      font-size: 12px;
+      line-height: 1.25;
+      font-weight: 600;
+    }
+
+    .lula-products td {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .lula-products td:first-child {
+      text-align: left;
+      padding-left: 6mm;
+    }
+
+    .lula-products th+th,
+    .lula-products td+td {
+      border-left: 1px solid #26232b;
+    }
+
+    .lula-products tbody tr {
+      height: 23mm;
+    }
+
+    .lula-products tbody tr+tr {
+      border-top: 1px solid #ccc;
+    }
+
+    .lula-totals {
+      border: 1px solid #26232b;
+      border-radius: 4mm;
+      padding: 4mm 5mm;
+      margin-top: 4mm;
+      font-size: 13px;
+    }
+
+    .lula-totals>div {
+      display: flex;
+      justify-content: space-between;
+      gap: 4mm;
+      padding: 2.5mm 0;
+    }
+
+    .lula-totals strong {
+      white-space: nowrap;
+    }
+
+    .lula-extra {
+      white-space: pre-line;
+      font-size: 11px;
+      margin-top: 5mm;
+    }
+
+    .lula-extra:empty {
+      display: none;
+    }
+
+    .lula-spacer {
+      flex: 1;
+      min-height: 20mm;
+    }
+
+    .lula-contact {
+      border-bottom: 1px solid #26232b;
+      padding: 2mm 1mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 4mm;
+      font-size: 14px;
+    }
+
+    .lula-contact span {
+      font-size: 11px;
+      text-align: right;
+    }
+
+    .lula-footer {
+      min-height: 25mm;
+      background: #f0d9ff;
+      padding: 4mm 8mm;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: .16em;
+    }
+
+    .lula-footer strong {
+      font-size: 14px;
+      letter-spacing: 0;
+      margin-top: 2mm;
+    }
+
+    @media print {
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      body,
+      .page-shell,
+      main {
+        background: #fff !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: none !important;
+      }
+
+      #print-area {
+        margin: 0 !important;
+      }
+
+      .lula-sheet {
+        margin: 0;
+        width: 210mm;
+        min-height: 297mm;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+
+      .lula-products-wrap,
+      .lula-totals,
+      .lula-hero {
+        break-inside: avoid;
+      }
+
+      .lula-products tr {
+        break-inside: avoid;
+      }
+
+    }
+
+    @media print {
+  @page { size: letter; margin: 12mm; }
+
+  body, .page-shell, main {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+  }
+
+  header, #editor-area, #saved-area, #print-area, #toast {
+    display: none !important;
+  }
+
+  #client-preview {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: 0 !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  #client-preview .grid.sm\:grid-cols-3,
+  #copy-summary-panel, #download-note, #backup-panel {
+    display: none !important;
+  }
+
+  #preview-client {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  #client-preview .preview-table {
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  #client-preview .preview-table th,
+  #client-preview .preview-table td {
+    overflow-wrap: anywhere;
+  }
+}
